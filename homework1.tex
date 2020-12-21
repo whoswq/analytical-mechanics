@@ -1,0 +1,327 @@
+\documentclass[a4paper]{ctexart}
+\usepackage[top=2.3cm,bottom=2cm,left=1.7cm,right=1.7cm]{geometry} 
+\usepackage{amsmath, amssymb}
+\usepackage{mathrsfs} 
+\usepackage{booktabs}
+\usepackage{amsthm}
+\usepackage{longtable} 
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{caption}
+\usepackage{fontspec}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{latexsym}
+\def\d{\mathrm{d}}
+\title{\textbf{Lagrange力学}}
+\author{王崇斌 1800011716}
+\date{}
+\makeatletter %使\section中的内容左对齐
+\renewcommand{\section}{\@startsection{section}{1}{0mm}
+	{-\baselineskip}{0.5\baselineskip}{\bf\leftline}}
+\makeatother
+\begin{document}
+    \pagestyle{fancy}
+    \lhead{理论力学作业}
+	\chead{}
+	\rhead{}
+	\maketitle
+    \thispagestyle{fancy}
+    \paragraph{第一题}
+    一个质点在半径为$a$的圆环上运动。圆环平面保持竖直，并绕其过圆心的竖直轴
+    以匀角速度$\omega$转动。写出质点在重力作用下的运动方程和初积分。$\omega$
+    小于何值才能使质点不在底部的某一处平衡，并求此位置。
+    \paragraph{解：}
+    系统有一个运动自由度，考虑质点质量为$m$与圆环中心连线与竖直向下方向的夹角为
+    $\theta$，那么质点的动能和势能以及lagrange量可以表示为：
+    \begin{align}
+        T &= \frac{1}{2}mv^{2} = \frac{1}{2}m\left[(a\dot{\theta})^{2} + (a\omega \sin\theta)^{2}\right]\\
+        V &= mga(1 - \cos\theta)\\
+        L &= \frac{1}{2}m\left[(a\dot{\theta})^{2} + (a\omega \sin\theta)^{2}\right] - mga(1 - \cos\theta)
+    \end{align}
+    由E-L方程：
+    \begin{align}
+        \frac{\d }{\d t}\frac{\partial L}{\partial\dot{q_{i}}} - \frac{\partial L}{\partial q_{i}} = 0
+    \end{align}
+    可以得到对于本系统的运动方程：
+    \begin{align}
+        a\ddot{\theta} = a\omega^{2}\sin\theta\cos\theta - g\sin\theta
+    \end{align}
+    可以看出lagrange量不显含时间，那么根据lagrange量的时间平移对称性可以推出能量守恒：
+    \begin{align}
+        E := \dot{q_{i}}\frac{\partial L}{\partial \dot{q_{i}}} - L = T + V = \frac{1}{2}m\left[(a\dot{\theta})^{2} + (a\omega \sin\theta)^{2}\right]  - mga \cos\theta
+    \end{align}
+    这里得说明平衡位置是什么意思，我理解的平衡位置，就是把质点相对圆环静止地放在那里，
+    依然可以保持相对静止的位置，这就要求此位置的$\ddot{\theta}=0$，也即：
+    \begin{align}
+        a\omega^{2}\sin\theta\cos\theta - g\sin\theta = 0
+    \end{align}
+    当$\sin\theta = 0$时，$\theta = 0, \pi$，对应于转轴处，估计是不稳定平衡的位置，
+    我们先把这样的情况抛弃掉，这样方程可以化简为：
+    \begin{align}
+        a\omega^{2}\cos\theta = g
+    \end{align}
+    注意到$\cos\theta$取值范围的限制，为了使$\theta$无解：
+    \begin{align}
+        g > a\omega^{2}\\
+        \omega < \sqrt{\frac{g}{a}}
+    \end{align}
+    \paragraph{第二题：广义势与广义力}
+    一质点受到的作用力由广义势$U = V(\vec{r}) + \vec{\sigma}\cdot\vec{J}$给出，其中$\vec{r}$
+    是质点相对于固定点$O$（原点）的矢径，$\vec{J}$是对$O$点的角动量，$\vec{\sigma}$为空间的常矢量
+    。写出质点受到的广义力和lagrange方程，广义力被定义为
+    $Q_{i} = -\frac{\partial U}{\partial q_{i}} + \frac{\d }{\d t}\frac{\partial U}{\partial \dot{q_{i}}}$
+    \paragraph{解：}
+    由广义势的定义与表达式可以得到：
+    \begin{align}
+        U &= V(\vec{r}) + m\vec{\sigma}\cdot(\vec{r}\times\vec{v})\\
+        \vec{Q} &= -\frac{\partial V}{\partial \vec{r}} + 2m\vec{\sigma}\times\vec{v}
+    \end{align}
+    根据达朗贝尔原理，质点的运动方程可以写为：
+    \begin{align}
+        \frac{\d }{\d t}\frac{\partial T}{\partial \dot{\vec{v}}} - \frac{\partial T}{\partial \vec{r}} = \vec{Q}
+    \end{align}
+    如果广义力可以由广义势通过题中的定义导出，那么：
+    \begin{align}
+        \frac{\d }{\d t}\frac{\partial T}{\partial \vec{v}} - \frac{\partial T}{\partial \vec{r}} &= -\frac{\partial U}{\partial \vec{r}} + \frac{\d }{\d t}\frac{\partial U}{\partial \vec{v}}\\
+        \frac{\d }{\d t}\frac{\partial L}{\partial \vec{v}} - \frac{\partial L}{\partial \vec{r}} &= 0
+    \end{align}
+    其中$L = T - U$, $U$为广义势，对于此题：
+    \begin{align}
+        L &= T - U = \frac{1}{2}mv^{2} - V(\vec{r}) - m\vec{\sigma}\cdot(\vec{r}\times\vec{v})\\
+        m\ddot{\vec{r}} &= -\frac{\partial V}{\partial \vec{r}} + 2m\vec{\sigma}\times\vec{v}
+    \end{align}
+
+    \paragraph{第三题：lorentz变换与四矢量}
+    \paragraph{(a)} 请证明D'Alembert算符$\Box^{2} = \partial_{\mu}\partial^{\mu}$
+    具有lorentz不变性
+    \paragraph{(b)} 请证明$\epsilon^{\mu \nu \alpha \beta}F_{\mu \nu}F_{\alpha\beta}$是lorentz
+    不变量。其中$F_{\mu\nu} = \partial_{\mu}A_{\nu} - \partial_{\nu}A_{\mu}$是
+    电磁场场强张量$\epsilon^{\mu \nu \alpha \beta}$是Levi-Civita符号。
+    \paragraph{解：}
+    (a) 考虑一lorentz变换$\Lambda$，同时考虑到协变微分和逆变微分算符的性质：
+    \begin{align}
+        \partial^{'}_{\mu} &= \Lambda_{\mu}^{\;\nu}\partial_{\nu}\\
+        \partial^{'\mu} &= \Lambda^{\mu}_{\;\rho}\partial^{\rho}
+    \end{align}
+    带入达朗贝尔算符的定义立马得到：
+    \begin{align}
+        \Box^{'2} &= \partial^{'}_{\mu}\partial^{'\mu} = \Lambda_{\mu}^{\;\nu}\partial_{\nu}\Lambda^{\mu}_{\;\rho}\partial^{\rho}\\
+    \end{align}
+    容易通过定义和lorentz变换保持minkowski度量的性质证明：
+    \begin{align}
+        \delta_{\rho}^{\nu} = \Lambda_{\mu}^{\;\nu}\Lambda^{\mu}_{\;\rho}
+    \end{align}
+    可以得到： 
+    \begin{align}
+        \Box^{'2} = \delta_{\rho}^{\nu}\partial_{\nu}\partial^{\rho} = \partial_{\nu}\partial^{\nu} = \Box^{2}
+    \end{align}
+    即证明了达朗贝尔算符的lorentz不变性。\\
+    (b)从电磁场强度张量的定义中可以看出这是一个二阶反对称的协变张量：
+    \begin{align}
+        F'_{\mu\nu} = F_{\sigma\rho}\Lambda_{\mu}^{\;\;\sigma}\Lambda_{\nu}^{\;\;\rho}
+    \end{align}
+    那么在lorentz变换$\Lambda$下，原表达式变为：
+    \begin{align}
+        \epsilon^{\mu\nu\alpha\beta}F'_{\mu\nu}F'_{\alpha\beta} = \epsilon^{\mu\nu\alpha\beta}F_{\sigma\rho}\Lambda_{\mu}^{\;\;\sigma}\Lambda_{\nu}^{\;\;\rho}
+        F_{\gamma\delta}\Lambda_{\alpha}^{\;\;\gamma}\Lambda_{\beta}^{\;\;\delta}
+    \end{align}
+     我们的重点是证明：
+    \begin{align}
+        \epsilon^{\sigma\rho\gamma\delta} = \epsilon^{\mu\nu\alpha\beta}\Lambda_{\mu}^{\;\;\sigma}\Lambda_{\nu}^{\;\;\rho}\Lambda_{\alpha}^{\;\;\gamma}\Lambda_{\beta}^{\;\;\delta}
+    \end{align}
+    根据题目中的定义，我们可以看出等式右边相当于一个行列式的展开，行列式的每一行对应于矩阵
+    $(\Lambda_{\beta}^{\;\;\delta})$的$\sigma\rho\gamma\delta$行，那么根据行列式的性质可知，
+    当存在行指标相同时，行列式的两行相同，等式右边为零；当不存在行指标相同时，右边的绝对值为lorentz变换
+    矩阵行列式的绝对值，可知其为1，当$\sigma\rho\gamma\delta$为偶排列时，等式右边对应的行列式
+    经过偶数次两行互换可以变为lorentz矩阵的行列式，因此等于1，当$\sigma\rho\gamma\delta$，为奇排列时，
+    右边行列式经过奇数次两行互换可以变为lorentz矩阵的行列式，因此等于-1，这正是符号$\epsilon^{\sigma\rho\gamma\delta}$
+    的定义，因此上面的等式成立，就证明了题中的结论。
+    \paragraph{第四题\;变分法：}
+    过两个点$(x_{1}, y_{1}),\;(x_{2}, y_{2})$作一曲线，使此曲线绕$y$轴
+    旋转所得的曲面面积最小，求曲线满足的微分方程。
+    \paragraph{解：}
+    (1)\;首先假设$x_{1} \neq x_{2}$均大于零，且与$|y_{1} - y_{2}|$相比并不太小，考虑使用
+    $x$作为自变量，设曲线的方程为$y = y(x)$，那么旋转曲面的面积可以表示为：
+    \begin{align}
+        S = \int_{x_{1}}^{x_{2}}\d S = \int_{x_{1}}^{x_{2}}2\pi x\sqrt{1 + y'^{2}}\d x
+    \end{align}
+    由于积分中只包含$x,\;y,\;y'$那么可以应用E-L方程求泛函极值，得到：
+    \begin{align}
+        \frac{xy'}{\sqrt{1 + y'^{2}}} = C
+    \end{align}
+    其中$C$为一个常数，稍微化简以下可以得到：
+    \begin{align}
+        y' = \frac{C}{\sqrt{x^{2} - C^{2}}}
+    \end{align}
+    (2)\;如果是$x_{1} = x_{2}$的情况，可以设$x = x(y)$，同样通过E-L方程得到：
+    \begin{align}
+    1 + x'^{2} = x x''
+    \end{align}
+    化简后得到：
+    \begin{align}
+    C\cdot x = \sqrt{1 + x'^{2}}
+    \end{align}
+    两边平方后取倒数，可以看到与上一种情况的微分方程是一致的。\\
+    (3)\;当$|y_{1} - y_{2}|$很大，而$x_{1}, x_{2}$离轴很近时，大概猜测应该是向坐标轴
+    作垂线是最小的曲面，但是这个不光滑，E-L方程应该是解不出来这种情况的，E-L方程应该会
+    解出一个局部的极小值。\\
+    (4)\;当$x_{1}, x_{2}$符号相反或者有一个处于轴上时，前面微分方程的解完全无法适应
+    这样的边界情况，我的想法依然是向轴作垂线产生的旋转面积最小，可以认为这是直角三角形
+    的斜边大于直角边长所决定的。
+    \paragraph{第五题\;弯曲时空粒子的测地线：}
+    按照广义相对论观点，一个外加引力场可以用一个时空依赖的度规张量场$g_{\mu\nu}(x)$来刻画。
+    这时一个相对论性自由粒子在其中的作用量依然可以由公式：
+    \begin{align}
+        S = -mc\int\d s
+    \end{align}
+    给出，其中$\d s^{2} = g_{\mu\nu}(x)\d x^{\mu}\d x^{\nu}$。
+    该粒子的运动方程依然可以由最小作用量原理给出。请给出协变形式的运动方程。（注意：由于度规张量
+    不再是平直空间中的比较简单的形式，它的逆也不再简单，因此最终结果会包含度规张量的各种导数，
+    即所谓的Christoffel symbol）
+    \paragraph{解：}
+    考虑作用量的变分为零
+    \begin{align}
+        \delta S = -mc\quad\delta\int_{1}^{2} \sqrt{g_{\mu\nu}(x)\d x^{\mu}\d x^{\nu}} = 0
+    \end{align}
+    经化简后方程变为：
+    \begin{align}
+        \int_{1}^{2}\frac{\delta g_{\mu\nu}(x)\d x^{\mu}\d x^{\nu}}{2\d s}
+         + \int_{1}^{2}\frac{g_{\mu\nu}(x)\d \delta x_{\mu}\d x^{\nu}}{\d s} = 0
+    \end{align}
+    分部积分再化简后得到：
+    \begin{align}
+        \int_{1}^{2}\frac{1}{2}\frac{\partial g_{\mu\nu}(x)}{\partial x^{\rho}}\frac{\d x^{\mu}}{\d s}\frac{\d x^{\nu}}{\d s}\delta x^{\rho}\d s
+         - \int_{1}^{2}\d\left(\frac{g_{\mu\nu}(x)\d x^{\nu}}{\d s}\right)\delta x^{\mu} = 0\\
+        \int_{1}^{2}\frac{1}{2}\frac{\partial g_{\mu\nu}(x)}{\partial x^{\rho}}\frac{\d x^{\mu}}{\d s}\frac{\d x^{\nu}}{\d s}\delta x^{\rho}\d s
+         - \int_{1}^{2}\left(\frac{\d g_{\rho\nu}(x)}{\d s}\frac{\d x^{\mu}}{\d s} + g_{\rho\nu}(x)\frac{\d^{2}x^{\nu}}{\d s^{2}}\right)\delta x^{\rho}\d s = 0
+    \end{align}
+    由于$x^{\nu}$之间相互独立，根据变分学基本引理，可以得到自由粒子的运动方程为：
+    \begin{align}
+        \frac{1}{2}\frac{\partial g_{\mu\nu}(x)}{\partial x^{\rho}}\frac{\d x^{\mu}}{\d s}\frac{\d x^{\nu}}{\d s} = 
+        \frac{\partial g_{\rho\nu}(x)}{\partial x^{\alpha}}\frac{\d x^{\alpha}}{\d s}\frac{\d x^{\nu}}{\d s} + g_{\rho\nu}(x)\frac{\d^{2}x^{\nu}}{\d s^{2}}
+    \end{align}
+    其中，$\rho = 0,\;1,\;2,\;3$
+    \paragraph{第六题\;带电标量介子场与电磁场的相互作用：}
+    \paragraph{(a)}
+     四维时空中的实标量场$\phi(x)$的lagrange量密度可以写为：
+    \begin{align}
+        \mathcal{L}(\phi, \partial_{\mu}\phi) = \frac{1}{2}(\partial_{\mu}\phi)(\partial^{\mu}\phi) - \frac{1}{2}m^{2}\phi^{2}
+    \end{align}
+    这里我们定义了$\partial_{\mu}\phi = \frac{\partial}{\partial x^{\mu}},\;\partial^{\mu}\phi = \frac{\partial}{\partial x_{\mu}}$。\\
+    相应的作用量定义为：
+    \begin{align}
+        S = \int\d ^{4}x\mathcal{L}
+    \end{align}
+    请从最小作用量原理出发，证明相应的场方程（E-L方程）为：
+    \begin{align}
+        (\Box^{2} + m^{2})\phi = 0
+    \end{align}
+    \paragraph{解:}
+    我们首先通过变分法求出lagrange方程的一般表达式，假设lagrangian具有$\mathcal{L}(\phi, \partial_{\mu}\phi)$
+    的形式：
+    \begin{align}
+        \delta S &= \delta\int\mathcal{L}\d^{4} x\\
+        & = \int\left(\frac{\partial \mathcal{L}}{\partial \phi}\delta \phi + \frac{\partial\mathcal{L}}{\partial(\partial_{\mu}\phi)}\partial_{\mu}\delta\phi\right)\d^{4}x
+    \end{align}
+    通过分部积分可以将上式第二项化简，个人感觉这里对积分区域是有一定要求的，至少得是一个矩形区域
+    不然重积分不能简单地化为累次积分，导致无法分部积分。
+    \begin{align}
+        \int\left(\frac{\partial \mathcal{L}}{\partial \phi} - \partial_{\mu}\frac{\partial\mathcal{L}}{\partial(\partial_{\mu}\phi)}\right)\delta\phi \d^{4}x = 0
+    \end{align}
+    那么可以得到E-L方程得到：
+    \begin{align}
+        \frac{\partial \mathcal{L}}{\partial \phi} - \partial_{\mu}\frac{\partial\mathcal{L}}{\partial(\partial_{\mu}\phi)} = 0
+    \end{align}
+    带入题目中lagrange量密度的表达式，将表达式中的逆变微分算符通过度量张量提升指标后容易计算得到：
+    \begin{align}
+        (\partial_{\mu}\partial^{\mu} + m^{2})\phi = 0
+    \end{align}
+    根据达朗贝尔算符的定义，证毕。
+    \paragraph{(b)}\;四维时空中的自由复标量场$\phi(x)$的lagrange量密度可以写为：
+    \begin{align}
+        \mathcal{L}(\phi, \partial_{\mu}\phi) = \frac{1}{2}(\partial_{\mu}\phi)(\partial^{\mu}\phi^{^{\ast}}) - \frac{1}{2}m^{2}\phi\phi^{^{\ast}}
+    \end{align}
+    对于复标量场，请写出所有的场方程（E-L方程）。
+    \paragraph{解：}
+    可以仿照上一问的方法进行变分：
+    \begin{align}
+        \delta S = \frac{1}{2}\int\left(\frac{\partial \mathcal{L}}{\partial \phi} - \partial_{\mu}\frac{\partial\mathcal{L}}{\partial(\partial_{\mu}\phi)}\right)\delta\phi \d^{4}x
+        + \int\frac{1}{2}\left(\frac{\partial \mathcal{L}}{\partial \phi^{\ast}} - \partial_{\mu}\frac{\partial\mathcal{L}}{\partial(\partial_{\mu}\phi^{\ast})}\right)\delta\phi^{\ast} \d^{4}x
+        = 0
+    \end{align}
+    看起来$\delta\phi^{\ast}$与$\delta\phi$并不独立，但是可以让$\delta\phi$分别取
+    实函数和虚函数得到两个lagrange方程，再联立，可以解得：
+    \begin{align}
+        \frac{\partial \mathcal{L}}{\partial \phi} - \partial_{\mu}\frac{\partial\mathcal{L}}{\partial(\partial_{\mu}\phi)} = 0\\
+        \frac{\partial \mathcal{L}}{\partial \phi^{\ast}} - \partial_{\mu}\frac{\partial\mathcal{L}}{\partial(\partial_{\mu}\phi^{\ast})} = 0
+    \end{align}
+    带入本题中lagrange密度的表达式，可以得到场方程：
+    \begin{align}
+        (\Box^{2} + m^{2})\phi = 0\\
+        (\Box^{2} + m^{2})\phi^{\ast} = 0
+    \end{align}
+    看起来这两个方程并不是独立的。
+    \paragraph{(c)}
+    容易验证，在$U(1)$变换下：
+    \begin{align}
+        \phi(x) \mapsto \mathrm{e}^{\mathrm{i} \alpha}\phi(x)
+    \end{align}
+    拉格朗日密度函数是不变的。那么根据诺特定理，必然存在着一个相应的守恒量。
+    请证明，与$U(1)$变换对应的守恒流$j_{\mu} = (\partial_{\mu}\phi)\phi^{\ast} - (\partial_{\mu}\phi^{\ast})\phi$
+    满足条件：
+    \begin{align}
+        \partial^{\mu}j_{\mu} = 0
+    \end{align}
+    根据这个条件，我们马上得到：
+    \begin{align}
+        Q := \int_{\mathrm{all\;space}}j^{0}\d ^{3}x
+    \end{align}
+    是一个守恒荷，满足$\frac{\d }{\d t}Q = 0$。
+    \paragraph{解：}
+    将$U(1)$变换带入到lagrange量密度中，很容易就能看出其是不变量。
+    我们将$j_{\mu}$的定义带入$\partial^{\mu}j_{\mu}$中，得到：
+    \begin{align}
+        \partial^{\mu}j_{\mu} &= \phi^{\ast}\cdot\Box^{2}\phi + \partial_{\mu}\phi^{\ast}\cdot\partial^{\mu}\phi -
+        \phi\cdot\Box^{2}\phi - \partial_{\mu}\phi\cdot\partial^{\mu}\phi^{\ast}\\
+        &= \phi^{\ast}\cdot\Box^{2}\phi - \phi\cdot\Box^{2}\phi^{\ast}\\
+        &= -m^{2}\phi\phi^{\ast} + m^{2}\phi\phi^{\ast} = 0
+    \end{align}
+    证明了守恒流所满足的条件。我们对$Q$求导：
+    \begin{align}
+        \frac{\d Q}{\d t} &= \int_{all\;space}\frac{\partial j^{0}}{\partial t} \d^{3}x\\
+        & = \int_{all \; space} \frac{\partial}{\partial t}\left[(\partial_{0}\phi)\phi^{\ast} - (\partial_{0}\phi^{\ast}\phi)\right]\d^{3}x\\
+        & = \frac{1}{c}\int_{all\;space}\left[\frac{\partial^{2}\phi}{\partial t^{2}}\phi^{\ast} - \frac{\partial^{2}\phi^{\ast}}{\partial t^{2}}\phi\right]\d^{3}x
+    \end{align}
+    将场方程带入上式，化简得：
+    \begin{align}
+    \frac{\d Q}{\d t} &= c\cdot \int_{all\;space}(\phi^{\ast}\nabla^{2}\phi - \phi\nabla^{2}\phi^{\ast})\d ^{3}x\\
+    & = c\cdot\int_{all\;space}\nabla(\phi^{\ast}\nabla\phi - \phi\nabla\phi^{\ast})\d^{3}x\\
+    & = c\cdot\int_{surface}(\phi^{\ast}\nabla\phi - \phi\nabla\phi^{\ast})\d \vec{S}\\
+    \end{align}
+    如果考虑系统是有界的，那么在外表面的积分自然为零（其实我也不太清楚这么讨论是不是合适）
+    \paragraph{(d)}\;为了表征带电的复标量场与电磁场$A^{\mu}$的相互作用，我们在自由场lagrange函数的基础上
+    引入相互作用项：
+    \begin{align}
+        \mathcal{L} = \frac{1}{2}(\partial_{\mu}\phi)(\partial^{\mu}\phi^{^{\ast}}) - \frac{1}{2}m^{2}\phi\phi^{^{\ast}} + j_{\mu}A^{\mu}
+    \end{align}
+    其中$j_{\mu} = (\partial_{\mu}\phi)\phi^{\ast} - (\partial_{\mu}\phi^{\ast})\phi$。请给出相应的场方程，
+    并给出$\partial^{\mu}j_{\mu} =?$的等式右边。
+    \paragraph{解:}
+    前面讨论可以搬过来用用，将$j_{\mu}$的定义带入就会发现此处的lagrange量密度与(b)中的形式相同：
+    \begin{align}
+        \mathcal{L} = \frac{1}{2}(\partial_{\mu}\phi)(\partial^{\mu}\phi^{^{\ast}}) - \frac{1}{2}m^{2}\phi\phi^{^{\ast}} + \left[(\partial_{\mu}\phi)\phi^{\ast} - (\partial_{\mu}\phi^{\ast})\phi\right]A^{\mu}
+    \end{align}
+    带入(b)中得到的lagrange方程并化简：
+    \begin{align}
+        4(\partial_{\mu}\phi^{\ast})A^{\mu} + (\Box^{2} + m^{2})\phi^{\ast} = 0\\
+        -4(\partial_{\mu}\phi)A^{\mu} + (\Box^{2} + m^{2})\phi = 0
+    \end{align}
+    根据$j_{\mu}$的表达式，再加上场方程：
+    \begin{align}
+        \partial^{\mu}j_{\mu} &= \phi^{\ast}\cdot\Box^{2}\phi + \partial_{\mu}\phi^{\ast}\cdot\partial^{\mu}\phi -
+        \phi\cdot\Box^{2}\phi - \partial_{\mu}\phi\cdot\partial^{\mu}\phi^{\ast}\\
+        &= \phi^{\ast}\cdot\Box^{2}\phi - \phi\cdot\Box^{2}\phi^{\ast}\\
+        &= 4(\phi\partial_{\mu}\phi^{\ast} + \phi^{\ast}\partial_{\mu}\phi)A^{\mu}
+    \end{align}
+\end{document}

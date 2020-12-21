@@ -1,0 +1,286 @@
+\documentclass[a4paper]{ctexart}
+\usepackage[top=2.3cm,bottom=2cm,left=1.7cm,right=1.7cm]{geometry} 
+\usepackage{amsmath, amssymb}
+\usepackage{mathrsfs} 
+\usepackage{booktabs}
+\usepackage{amsthm}
+\usepackage{longtable} 
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{caption}
+\usepackage{fontspec}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{latexsym}
+\def\d{\mathrm{d}}
+\def\e{\mathrm{e}}
+\def\degree{$^{\circ}$}
+\title{\textbf{刚体\&\;Hamilton力学}}
+\author{王崇斌 1800011716}
+\date{}
+\makeatletter %使\section中的内容左对齐
+\renewcommand{\section}{\@startsection{section}{1}{0mm}
+	{-\baselineskip}{0.5\baselineskip}{\bf\leftline}}
+\makeatother
+\begin{document}
+    \pagestyle{fancy}
+    \lhead{理论力学作业}
+	\chead{}
+	\rhead{}
+	\maketitle
+    \thispagestyle{fancy}
+    \paragraph{1.}
+    半径为$a$的夹在互相平行的两板间，两板分别以$v_{1},\;v_{2}$匀速反向运动，
+    若圆柱和板之间无滑动，求：(1)圆柱瞬心的位置；(2)圆柱与上板接触点A的加速度（A是圆柱上的点）。
+    \subparagraph{solution\;(1):}
+    希望将圆柱体上任意一点的速度分解为绕圆柱体与平板下接触点的转动速度加上下接触点的平动速度，
+    为此先计算刚体转动的角速度（角速度与原点选取无关）：
+    \begin{align}
+        \omega = \frac{v_{1} + v_{2}}{2a}
+    \end{align}
+    方向是垂直于纸面指向纸面内。刚体上任意一点相对于下接触点的速度为：
+    \begin{align}
+        \vec{v} = \vec{r} \times \vec{\omega}
+    \end{align}
+    $\vec{r}$为刚体上一点相对于下接触点的位置，可见如果$\vec{r}$有水平分量，那么最终刚体上
+    那一点的合成速度必然有竖直分量，不可能为速度瞬心，因此瞬心一定在OA连线上，考虑其速度为零：
+    \begin{align}
+        \frac{v_{1} + v_{2}}{2a}\cdot r - v_{2}=0\\
+        r = \frac{v_{2}}{v_{1} + v_{2}}\cdot 2a
+    \end{align}
+    \subparagraph{solution\;(2):}
+    容易看出此圆柱中心在做匀速直线运动，那么在圆柱中心参考系中，A点的加速度与原参考系相同，容易计算出
+    A点的加速度为$\frac{(v_{1} + v_{2})^{2}}{4a}$，方向竖直向下。
+    \\
+    \paragraph{2.}一刚体对于定点O的惯量张量为：
+    \begin{gather}
+        I = 
+        \begin{bmatrix}
+            8 & -3 & -3\\
+            -3 & 8 & -3\\
+            -3 & -3 & 8
+        \end{bmatrix}
+        I_{0}
+    \end{gather}
+    求解本征值问题，找到主轴坐标系的三个轴的方向，求出主转动惯量。
+    \subparagraph{solution:}
+    首先考虑久期方程：
+    \begin{gather}
+        \begin{bmatrix}
+            8 - \lambda & -3 & -3\\
+            -3 & 8 - \lambda & -3\\
+            -3 & -3 & 8 - \lambda\\
+        \end{bmatrix}
+        = 0
+    \end{gather}
+    经过化简后可得到一个方程：
+    \begin{align}
+        (\lambda - 11)^{2}(\lambda - 2) = 0
+    \end{align}
+    那么可以知道对于O点，主转动惯量为$I_{1} = I_{2} = 11I_{0},\;I_{3} = 2I_{0}$。
+    同时可以解出三个坐标轴的方向为：
+    \begin{gather}
+    e_{1} = 
+    \begin{bmatrix}
+        -1\\
+        0\\
+        1
+    \end{bmatrix}
+    \quad
+    e_{2} = 
+    \begin{bmatrix}
+        -1\\
+        1\\
+        0
+    \end{bmatrix}
+    \quad
+    e_{3} = 
+    \begin{bmatrix}
+        1\\
+        1\\
+        1
+    \end{bmatrix}
+    \end{gather}
+    \\
+    \paragraph{3.}
+    一半径为$a$的光滑圆环，绕平面内过圆心的铅直轴以恒定角速度$\omega$转动。
+    一质量为$m$的小圆环套在大环上，由$\theta = \frac{\pi}{4}$处无初速度下滑。
+    问小环滑至何处时开始反向，请给出反向处的角度$\theta_{0}$（需要对于不同的$\omega$值
+    给出分析）。
+    \subparagraph{solution:}
+    首先讨论什么是“反向”，就是$\theta$极大值的情况，也即$\dot{\theta}=0,\;\ddot{\theta} < 0$的位置。
+    首先按照题目中选取的广义坐标给出系统的lagrange量：
+    \begin{align}
+        L = \frac{m}{2}(\omega^{2}a^{2}\sin^{2}\theta + a^{2}\dot{\theta}^{2}) - mga\cos\theta
+    \end{align}
+    那么容易通过Euler—Lagrange方程给出运动方程；同时通过lagrange量给出Hamilton量：
+    \begin{align}
+        \ddot{\theta} &= \omega^{2}\sin\theta\cos\theta + \frac{g}{a}\sin\theta\\
+        H &= \frac{m}{2}a^{2}\dot{\theta}^{2} + mga\cos\theta - \frac{m}{2}\omega^{2}a^{2}\sin^{2}\theta
+    \end{align}
+    容易看出系统的Hamilton量为守恒量，带入初始条件$\theta = \frac{\pi}{4}$，可以计算出Hamilton量的数值：
+    \begin{align}
+        \frac{m}{2}a^{2}\dot{\theta}^{2} + mga\cos\theta - \frac{m}{2}\omega^{2}a^{2}\sin^{2}\theta = \frac{\sqrt{2}}{2}mga - \frac{1}{4}m\omega^{2}a^{2}
+    \end{align}
+    考虑$\dot{\theta} = 0$，可以直接解出：
+    \begin{align}
+        \cos\theta &= \frac{\sqrt{2}}{2}\\
+        \cos\theta &= \frac{\sqrt{2}\omega^{2}a - 4g}{2\omega^{2}a}
+    \end{align}
+    下面就得细致讨论不同$\omega$取值时的情况，首先讨论最简单的情况：
+    \begin{align}
+        \frac{\sqrt{2}\omega^{2}a - 4g}{2\omega^{2}a} < -1
+    \end{align}
+    此时方程的第二个解不能给出有意义的$\theta$，那么只可能$\cos\theta = \frac{\sqrt{2}}{2}$，如果同时考虑
+    $\ddot{\theta} < 0$，观察方程(10)，只有$\sin\theta < 0$才行，故返回的$\theta_{0} = \frac{7\pi}{4}$。
+    此时对应的$\omega$为：
+    \begin{align}
+        0 < \omega < \sqrt{\frac{4g}{(2 + \sqrt{2})a}}
+    \end{align}
+    其次讨论$\cos\theta > 0$的情况，此时若要$\ddot{\theta} < 0$，必须要有$\sin\theta < 0$，综合这两个限制条件，可以解出：
+    \begin{align}
+        \omega &> \sqrt{\frac{2\sqrt{2}g}{a}}\\
+        \theta_{0} &= \arccos\frac{\sqrt{2}\omega^{2}a - 4g}{2\omega^{2}a}\quad(\pi < \theta_{0} < 2\pi)
+    \end{align}
+    最后讨论最复杂的情况$-1 < \cos\theta < 0$，同时保证$\ddot{\theta} < 0$，首先考虑$\sin\theta > 0$，求解方程(10)，可得到对于角速度的限制和返回角度为：
+    \begin{align}
+        \sqrt{\frac{4g}{(2 + \sqrt{2})a}} &< \omega < \sqrt{\frac{\sqrt{2}g}{a}}\\
+        \theta_{0} &= \arccos\frac{\sqrt{2}\omega^{2}a - 4g}{2\omega^{2}a}\quad(0 < \theta_{0} < \pi)
+    \end{align}
+    其次考虑$\sin\theta < 0$，带入方程(10)可以解得对于$\omega$的限制与返回角度的取值：
+    \begin{align}
+        \sqrt{\frac{\sqrt{2}g}{a}} &< \omega < \sqrt{\frac{2\sqrt{2}g}{a}}\\
+        \theta_{0} &= \arccos\frac{\sqrt{2}\omega^{2}a - 4g}{2\omega^{2}a}\quad(\pi < \theta_{0} < 2\pi)
+    \end{align}
+    \paragraph{4.二维各向同性谐振子}
+    \subparagraph{solution(1):}
+    考虑Hamilton-Jacobi方程：
+    \begin{align}
+        \frac{\partial S}{\partial t}  + H = 0
+    \end{align}
+    由于系统的Hamilton量不显含时间，设能量为$E$（为一运动积分），Hamilton-Jacobi方程可以写为：
+    \begin{align}
+        -E + \frac{1}{2m}\left[\left(\frac{\partial S}{\partial x}\right)^{2} + \left(\frac{\partial S}{\partial y}\right)^{2}\right] + \frac{m}{2}\omega^{2}(x^{2} + y^{2}) = 0
+    \end{align}
+    \subparagraph{solution(2):}
+    将题中形式的作用量带入H-J方程，可以直接分离变量得到：
+    \begin{align}
+        \frac{\partial T}{\partial t} &= -E\\
+        Q_{1} &= \frac{1}{2m}\left(\frac{\partial S}{\partial x}\right)^{2} + \frac{m}{2}\omega^{2}x^{2}\\
+        Q_{2} &= \frac{1}{2m}\left(\frac{\partial S}{\partial y}\right)^{2} + \frac{m}{2}\omega^{2}y^{2}
+    \end{align}
+    其中$Q_{1},\;Q_{2}$是分离变量时产生的常数，$E = Q_{1}+Q_{2}$。
+    \subparagraph{solution(3):}
+    从上一问中容易直接写出$T(t),\;S_{i}(x_{i})$的表达式：
+    \begin{align}
+        T &= -(Q_{1} + q_{2})t\\
+        S_{1}(x) &= \int\sqrt{2mQ_{1} - m^{2}\omega^{2}x^{2}}\d x\\
+        S_{2}(y) &= \int\sqrt{2mQ_{2} - m^{2}\omega^{2}y^{2}}\d y\\
+    \end{align}
+    将上三式相加，得到：
+    \begin{align}
+        S(x, y, t) = -(Q_{1} + q_{2})t + \int\sqrt{2mQ_{1} - m^{2}\omega^{2}x^{2}}\d x + \int\sqrt{2mQ_{2} - m^{2}\omega^{2}y^{2}}\d y
+    \end{align}
+    \subparagraph{solution(4):}
+    考虑将$S$作为第一型母函数的正则变换，将其中常数作为新的广义坐标，可以得到平凡的新广义动量：
+    \begin{align}
+        P_{1} &= -\frac{\partial S}{\partial Q_{1}} = t - \int\frac{m}{\sqrt{2mQ_{1} - m^{2}\omega^{2}x^{2}}}\d x = t - \frac{1}{\omega}\arcsin\sqrt{\frac{m}{2Q_{1}}}\omega x\\
+        P_{2} &= -\frac{\partial S}{\partial Q_{2}} = t - \int\frac{m}{\sqrt{2mQ_{2} - m^{2}\omega^{2}y^{2}}}\d y = t - \frac{1}{\omega}\arcsin\sqrt{\frac{m}{2Q_{2}}}\omega y
+    \end{align}
+    从上两式容易解出：
+    \begin{align}
+        x &= \frac{1}{\omega}\sqrt{\frac{2Q_{1}}{m}}\sin\omega(t-P_{1})\\
+        y &= \frac{1}{\omega}\sqrt{\frac{2Q_{2}}{m}}\sin\omega(t-P_{2})
+    \end{align}
+    说实话没太搞懂什么叫相位相关联，个人感觉就是由于$P_{1},\;P_{2}$为固定的常数，两个方向上的相位之差是固定的，
+    这个算是相关联么？
+    \subparagraph{solution(5):}
+    从(33),(34)式中消去$t$：
+    \begin{align}
+        P_{1} + \frac{1}{\omega}\arcsin\sqrt{\frac{m}{2Q_{1}}}\omega x = P_{2} + \frac{1}{\omega}\arcsin\sqrt{\frac{m}{2Q_{2}}}\omega y
+    \end{align}
+    将上式移项后同时作用余弦函数(我都想直接写最终结果了)：
+    \begin{align}
+        \cos\omega(P_{1} - P_{2}) = \cos\arcsin\sqrt{\frac{m}{2Q_{1}}}\omega x\cdot\cos\arcsin\sqrt{\frac{m}{2Q_{2}}}\omega y + \frac{m}{2}\sqrt{\frac{1}{Q_{1}Q_{2}}}\omega^{2}xy
+    \end{align}
+    将上式移项平方后：
+    \begin{align}
+        \left(\cos\omega(P_{1}-P_{2}) - \frac{m}{2}\sqrt{\frac{1}{Q_{1}Q_{2}}}\omega^{2}xy\right)^{2} = 
+        \left(1 - \frac{m}{2Q_{1}}\omega^{2}x^{2}\right)\left(1-\frac{m}{2Q_{2}}\omega^{2}y^{2}\right)
+    \end{align}
+    上式两边的四次项相互抵消（这是各向同性谐振子才有的），因此上式代表了一个二次曲线，仔细看看就知道是个椭圆，一定闭合。
+    \subparagraph{solution(6):}
+    系统的H-Jacobi方程可以写为：
+    \begin{align}
+        -E  + \frac{1}{2m}\left[\left(\frac{\partial S}{\partial r}\right)^{2} + \frac{1}{r^{2}}\left(\frac{\partial S}{\partial \theta}\right)^{2}\right] + \frac{1}{2}m\omega^{2}r^{2}
+    \end{align}
+    将题中形式的作用量带入，看到$\theta$为循环坐标，因此可以写出：
+    \begin{align}
+        \Theta(\theta) &= M\theta\\
+        T(t) &= -Et\\
+        E &= \frac{1}{2m}\left(\frac{\partial R}{\partial r}\right)^{2} + \frac{M^{2}}{2mr^{2}} + \frac{1}{2}m\omega^{2}r^{2}
+    \end{align}
+    那么可以求出$R(r)$：
+    \begin{align}
+        R(r) = \int\sqrt{2mE - \frac{M^{2}}{r^{2}} - m^{2}\omega^{2}r^{2}}\d r
+    \end{align}
+    那么：
+    \begin{align}
+        S(r, \theta, t) = \int\sqrt{2mE - \frac{M^{2}}{r^{2}} - m^{2}\omega^{2}r^{2}}\d r + M\theta - Et
+    \end{align}
+    \subparagraph{solution(7):}
+    考虑将上面一题的作用量中的常数$M$当作新的广义坐标，那么新的广义动量由母函数$S$给出：
+    \begin{align}
+        P = -\frac{\partial S}{\partial M} = -\theta - \int\frac{M/r^{2}}{\sqrt{2mE - \frac{M^{2}}{r^{2}} - m^{2}\omega^{2}r^{2}}} \d r
+    \end{align}
+    将上式变量替换并且积分后可得到：
+    \begin{align}
+        2(\theta + P) = \arccos\frac{\frac{2mE}{M^{2}} - \frac{2}{r^{2}}}{2\frac{m}{M}\sqrt{\frac{E^{2}}{M^{2}} - \omega^{2}}}
+    \end{align}
+    将上式化简之后可得：
+    \begin{align}
+        r = \frac{1}{\sqrt{\frac{mE}{M^{2}}-\frac{m}{M}\sqrt{\frac{E^{2}}{M^{2}} - \omega^{2}}\cos2(\theta + P)}}
+    \end{align}
+    这是一个中心位于极点的椭圆，虽然我不能继续化简，但是它好像就是这个样子。
+    \paragraph{4.Poisson bracket}
+    \subparagraph{solution(1):}
+    由于$\vec{A}$与$H$的表达式都非常对称，只用证明它的一个分量与$H$的Poisson括号为零即可：
+    为此先证明几个基本的结论：
+    \begin{align}
+        \left[p_{i}, \frac{1}{r}\right] &= -\frac{\partial p_{i}}{\partial p_{i}}\frac{\partial \frac{1}{r}}{\partial x_{i}} = \frac{x_{i}}{r^{3}}\\
+        \left[L_{i}, \frac{1}{r}\right] &= \left[\epsilon_{ijk}x_{j}p_{k}, \frac{1}{r}\right] = \epsilon_{ijk}x_{j}\left[p_{k}, \frac{1}{r}\right] = \epsilon_{ijk}x_{j}x_{k}\frac{1}{r^{3}} = 0\\
+        \left[p_{i}, L_{j}\right] &= \left[p_{i}, \epsilon_{jrk}x_{r}p_{k}\right] = \epsilon_{jrs}p_{s}\left[p_{i}, x_{r}\right] = -\epsilon_{jik}p_{k} = \epsilon_{ijk}p_{k}\\
+        \left[x_{i}, L_{j}\right] &= \left[x_{i}, \epsilon_{jrk}x_{r}p_{k}\right] = \epsilon_{ijk}x_{k}\\
+        \left[L_{i}, L_{j}\right] &= \epsilon_{ijk}L_{k}
+    \end{align}
+    直接暴力计算：
+    \begin{align}
+        \left[A_{x}, H\right] &= \left[p_{y}L_{z} - L_{y}p_{z} - \frac{mkx}{r},\; \frac{1}{2m}(p_{x}^{2} + p_{y}^{2}+p_{x}^{2}) - \frac{mk}{r}\right]\\
+        &= \left[p_{y}L_{z} - L_{y}p_{z}, \;\frac{1}{2m}(p_{x}^{2} + p_{y}^{2}+p_{x}^{2})\right] - \left[p_{y}L_{z}-L_{y}p_{z},\;\frac{mk}{r}\right] - \left[\frac{mkx}{r},\;\frac{1}{2m}(p_{x}^{2} + p_{y}^{2}+p_{x}^{2})\right] + 0\\
+        &= 0 - k\frac{yL_{z} - zL_{y}}{r^{3}} + k\left(x\frac{xp_{x} + yp_{y} + zp_{z}}{r^{3}} - \frac{p_{x}}{r}\right) + 0\\
+        &=0
+    \end{align}
+    上式显然经过了复杂的运算（流下了不会Levi-Civita符号的泪水）。
+    \subparagraph{solution(2):}
+    这里尝试用Levi-Civita符号给出普遍的证明：
+    \begin{gather}
+        \begin{align}
+        \left[A_{i}, L_{j}\right] &= \left[\epsilon_{imn}p_{m}L_{n} - \frac{mkx_{i}}{r}, L_{j}\right]\\
+        &= \epsilon_{imn}\left[p_{m}L_{n}, L_{j}\right] - \epsilon_{ijk}\frac{mkx_{k}}{r}\\
+        &= \epsilon_{imn}\epsilon_{njk}p_{m}L_{k} + \epsilon_{imn}\epsilon_{mjk}L_{n}p_{k} - \epsilon_{ijk}\frac{mkx_{k}}{r}\\
+        &= \epsilon_{imn}\epsilon_{jkn}p_{m}L_{k} + \epsilon_{nim}\epsilon_{jkm}L_{n}p_{k} - \epsilon_{ijk}\frac{mkx_{k}}{r}\\
+        &= (\delta_{ij}\delta_{mk}-\delta_{ik}\delta_{jm})p_{m}L_{k} + (\delta_{nj}\delta_{ik}- \delta_{nj}\delta_{ik})p_{k}L_{n} - \epsilon_{ijk}\frac{mkx_{k}}{r}\\
+        &= p_{i}L_{j} - p_{j}L_{i} - \epsilon_{ijk}\frac{mkx_{k}}{r}
+        \end{align}
+    \end{gather}
+    同时可以计算：
+    \begin{align}
+        \epsilon_{ijk}A_{k} &= \epsilon_{ijk}\epsilon_{mnk}p_{m}L_{k} - \epsilon_{ijk}\frac{mkx_{k}}{r}\\
+        &=\left(\delta_{im}\delta_{jn}- \delta_{in}\delta_{jm}\right)p_{m}L_{n} - \epsilon_{ijk}\frac{mkx_{k}}{r}\\
+        &= p_{i}L_{j} - p_{j}L_{i} - \epsilon_{ijk}\frac{mkx_{k}}{r}
+    \end{align}
+    比较上面两式就证明了：
+    \begin{align}
+        \left[A_{i}, L_{j}\right] = \epsilon_{ijk}A_{k}
+    \end{align}
+\end{document}
